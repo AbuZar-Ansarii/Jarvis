@@ -23,36 +23,6 @@
 
 ---
 
-## 📌 Table of Contents
-
-- [🌟 System Overview](#-system-overview)
-- [🏗️ Architectural Blueprint & Data Flow](#️-architectural-blueprint--data-flow)
-- [🔮 Dual Holographic Visual Screens](#-dual-holographic-visual-screens)
-- [📱 The Three Operational Modes](#-the-three-operational-modes)
-- [🚀 The 9 Stark Superpowers Suite](#-the-9-stark-superpowers-suite)
-  - [1. 🖐️ Iron Man Zero-Touch Air Gestures](#1-️-iron-man-zero-touch-air-gestures)
-  - [2. ⚡ Arc Reactor Charging Telemetry](#2--arc-reactor-charging-telemetry)
-  - [3. 🌐 Polyglot Diplomat (Live Two-Way Voice Translator)](#3--polyglot-diplomat-live-two-way-voice-translator)
-  - [4. 🎭 "Code Black" Tactical Deceptive Lockout](#4--code-black-tactical-deceptive-lockout)
-  - [5. 👁️ Holographic Floating Co-Pilot](#5-️-holographic-floating-co-pilot)
-  - [6. 📡 Overhead Airspace & Orbital Satellite Radar](#6--overhead-airspace--orbital-satellite-radar)
-  - [7. 🧠 "Chaotic Brain Dump" Multi-Task Decoupler](#7--chaotic-brain-dump-multi-task-decoupler)
-  - [8. 👁️ Real-Time Optical HUD Solver](#8-️-real-time-optical-hud-solver)
-  - [9. 🛡️ Stark Network Auditing & Wi-Fi Vulnerability Scan](#9-️-stark-network-auditing--wi-fi-vulnerability-scan)
-- [🛡️ Tactical Sentry Mode & Telegram Remote Control](#️-tactical-sentry-mode--telegram-remote-control)
-- [🧬 Hermes Self-Evolution Architecture](#-hermes-self-evolution-architecture)
-- [🎙️ Studio Neural Voice & Audio Engine](#️-studio-neural-voice--audio-engine)
-- [🌐 Supported AI Providers & Vision Models](#-supported-ai-providers--vision-models)
-- [⚙️ Device Diagnostics, Local Storage & Smart Home](#️-device-diagnostics-local-storage--smart-home)
-- [📋 Master Voice Commands Reference Guide](#-master-voice-commands-reference-guide)
-- [🔐 Android Permissions & Setup Guide](#-android-permissions--setup-guide)
-- [🛠️ Build & Installation Instructions](#️-build--installation-instructions)
-- [📂 Codebase Architecture & Directory Map](#-codebase-architecture--directory-map)
-- [❓ Troubleshooting & Edge Cases](#-troubleshooting--edge-cases)
-- [📄 License & Attribution](#-license--attribution)
-
----
-
 ## 🌟 System Overview
 
 **J.A.R.V.I.S.** (PrivateAgent) is an autonomous, on-device AI assistant, system automation framework, and cybernetic operating HUD for Android, architected and built by **Abuzar**. 
