@@ -10,6 +10,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.12+-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 [![Android](https://img.shields.io/badge/Android-API%2026%2B%20(8.0--15)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local--First-00E5FF?style=for-the-badge&logo=shield&logoColor=black)](https://ollama.com)
 [![Hermes](https://img.shields.io/badge/Hermes-Self--Evolving%20Engine-BA68C8?style=for-the-badge&logo=openai&logoColor=white)](https://nousresearch.com)
 [![UI](https://img.shields.io/badge/Design-Liquid%20Glass%20HUD-6366F1?style=for-the-badge&logo=material-design&logoColor=white)](https://flutter.dev)
@@ -508,6 +509,8 @@ Jarvis/
 ---
 
 ## 📄 License & Attribution
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 Architected, designed, and engineered by **Abuzar**. All rights reserved.
 
