@@ -14,6 +14,7 @@ import '../../services/task_executor.dart';
 import '../../services/todo_service.dart';
 import '../../services/voice_service.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/brain_dump_dialog.dart';
 import '../../widgets/chat_bubble.dart';
 import '../../widgets/glass_widgets.dart';
 import '../../widgets/jarvis_hud_widget.dart';
@@ -409,6 +410,22 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               onTap: () {
                 Navigator.of(context).pop();
                 _showNotesSheet();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.alt_route_rounded, color: Color(0xFF00E5FF)),
+              title: const Text('Multi-Task Decoupler', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+              subtitle: const Text(
+                'Chaotic Brain Dump parallel engine',
+                style: TextStyle(fontSize: 11),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.black.withValues(alpha: 0.65),
+                  builder: (_) => const BrainDumpDialog(),
+                );
               },
             ),
             const Divider(indent: 12, endIndent: 12),

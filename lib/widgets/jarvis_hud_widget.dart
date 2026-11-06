@@ -9,6 +9,7 @@ import '../services/macro_recorder_service.dart';
 import '../services/proactive_agent_service.dart';
 import '../services/settings_service.dart';
 import 'air_gestures_hud_widget.dart';
+import 'brain_dump_dialog.dart';
 
 /// Next-Generation Stark Industries J.A.R.V.I.S. 3D Hologram Consciousness Core.
 ///
@@ -368,173 +369,337 @@ class _JarvisHudWidgetState extends State<JarvisHudWidget>
                       ),
                     ),
 
-                    // Futuristic Action Pods: Iron Man Air Gestures & Macro Recorder
+                    // Futuristic Action Pods: Always-On, Multitask Decoupler, Self-Evolution, Air Gestures & Macros
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListenableBuilder(
-                            listenable: AirGestureService.instance,
-                            builder: (context, _) {
-                              final isAir = AirGestureService.instance.isEnabled;
-                              final airColor = isAir ? const Color(0xFF00E5FF) : themeColor;
-                              return GestureDetector(
-                                onTap: () {
-                                  HapticFeedback.mediumImpact();
-                                  showDialog(
-                                    context: context,
-                                    barrierColor: Colors.black.withValues(alpha: 0.65),
-                                    builder: (_) => const AirGesturesHudWidget(),
-                                  );
-                                },
-                                onLongPress: () {
-                                  HapticFeedback.heavyImpact();
-                                  AirGestureService.instance.toggleAirGestures();
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                                  decoration: BoxDecoration(
-                                    color: isAir ? airColor.withValues(alpha: 0.20) : airColor.withValues(alpha: 0.10),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: isAir ? airColor : airColor.withValues(alpha: 0.40),
-                                      width: isAir ? 1.6 : 1.2,
-                                    ),
-                                    boxShadow: isAir
-                                        ? [
-                                            BoxShadow(
-                                              color: airColor.withValues(alpha: 0.4),
-                                              blurRadius: 10,
-                                            ),
-                                          ]
-                                        : null,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        isAir ? Icons.pan_tool : Icons.pan_tool_outlined,
-                                        size: 14,
-                                        color: airColor,
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        'AIR GESTURES',
-                                        style: TextStyle(
-                                          color: airColor,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: 1.5,
-                                          fontFamily: 'monospace',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          ListenableBuilder(
-                            listenable: SettingsService.instance,
-                            builder: (context, _) {
-                              final style = SettingsService.instance.jarvisScreenStyle;
-                              final isArc = style == JarvisScreenStyle.arcReactor;
-                              final podColor = isArc ? const Color(0xFF00E5FF) : const Color(0xFF64FFDA);
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // 1. Always-On Continuous Listening Receptor
+                            ListenableBuilder(
+                              listenable: SettingsService.instance,
+                              builder: (context, _) {
+                                final isAlwaysOn = SettingsService.instance.jarvisAlwaysOn;
+                                final onColor = const Color(0xFF00E5FF);
+                                final offColor = Colors.white.withValues(alpha: 0.45);
+                                final color = isAlwaysOn ? onColor : offColor;
 
-                              return GestureDetector(
-                                onTap: () {
-                                  HapticFeedback.mediumImpact();
-                                  final next = isArc ? JarvisScreenStyle.jarvis : JarvisScreenStyle.arcReactor;
-                                  SettingsService.instance.setJarvisScreenStyle(next);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 7),
-                                  decoration: BoxDecoration(
-                                    color: podColor.withValues(alpha: 0.12),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: podColor.withValues(alpha: 0.45),
-                                      width: 1.2,
+                                return GestureDetector(
+                                  onTap: () async {
+                                    HapticFeedback.mediumImpact();
+                                    final next = !isAlwaysOn;
+                                    await SettingsService.instance.setJarvisAlwaysOn(next);
+                                    if (next) {
+                                      JarvisService.instance.ensureAlwaysOnRunning();
+                                    } else {
+                                      JarvisService.instance.stopAlwaysOn();
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                    decoration: BoxDecoration(
+                                      color: isAlwaysOn
+                                          ? onColor.withValues(alpha: 0.18)
+                                          : Colors.white.withValues(alpha: 0.05),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: isAlwaysOn
+                                            ? onColor.withValues(alpha: 0.8)
+                                            : Colors.white.withValues(alpha: 0.25),
+                                        width: isAlwaysOn ? 1.5 : 1.0,
+                                      ),
+                                      boxShadow: isAlwaysOn
+                                          ? [
+                                              BoxShadow(
+                                                color: onColor.withValues(alpha: 0.35),
+                                                blurRadius: 10,
+                                              ),
+                                            ]
+                                          : null,
                                     ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        isArc ? Icons.blur_circular_rounded : Icons.accessibility_new_rounded,
-                                        size: 13,
-                                        color: podColor,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        isArc ? 'ARC' : 'JARVIS',
-                                        style: TextStyle(
-                                          color: podColor,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: 1.3,
-                                          fontFamily: 'monospace',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          ListenableBuilder(
-                            listenable: MacroRecorderService.instance,
-                            builder: (context, _) {
-                              final isRec = MacroRecorderService.instance.isRecording;
-                              final color = isRec ? const Color(0xFFFF5252) : const Color(0xFFBA68C8);
-                              return GestureDetector(
-                                onTap: () {
-                                  HapticFeedback.mediumImpact();
-                                  if (isRec) {
-                                    _jarvis.processCommand('save macro');
-                                  } else {
-                                    _jarvis.processCommand('record macro Custom Task');
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                                  decoration: BoxDecoration(
-                                    color: color.withValues(alpha: 0.12),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: color.withValues(alpha: 0.45),
-                                      width: 1.2,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        isRec ? Icons.fiber_manual_record : Icons.auto_awesome,
-                                        size: 13,
-                                        color: color,
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        isRec ? 'RECORDING // SAVE' : 'MACRO',
-                                        style: TextStyle(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          isAlwaysOn ? Icons.hearing : Icons.hearing_disabled,
+                                          size: 13,
                                           color: color,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: 1.5,
-                                          fontFamily: 'monospace',
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          isAlwaysOn ? 'ALWAYS-ON: ON' : 'ALWAYS-ON',
+                                          style: TextStyle(
+                                            color: color,
+                                            fontSize: 9.5,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 1.2,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 8),
+
+                            // 2. Chaotic Brain Dump Multi-Task Decoupler
+                            GestureDetector(
+                              onTap: () {
+                                HapticFeedback.mediumImpact();
+                                showDialog(
+                                  context: context,
+                                  barrierColor: Colors.black.withValues(alpha: 0.65),
+                                  builder: (_) => const BrainDumpDialog(),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF00E5FF).withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: const Color(0xFF00E5FF).withValues(alpha: 0.5),
+                                    width: 1.2,
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ],
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.alt_route_rounded,
+                                      size: 13,
+                                      color: Color(0xFF00E5FF),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'MULTITASK',
+                                      style: TextStyle(
+                                        color: Color(0xFF00E5FF),
+                                        fontSize: 9.5,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 1.2,
+                                        fontFamily: 'monospace',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+
+                            // 3. Hermes Self-Evolution Trigger
+                            GestureDetector(
+                              onTap: () async {
+                                HapticFeedback.mediumImpact();
+                                _jarvis.processCommand('self evolve');
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFBA68C8).withValues(alpha: 0.14),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: const Color(0xFFBA68C8).withValues(alpha: 0.55),
+                                    width: 1.2,
+                                  ),
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.psychology_rounded,
+                                      size: 13,
+                                      color: Color(0xFFBA68C8),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'SELF EVOLVE',
+                                      style: TextStyle(
+                                        color: Color(0xFFBA68C8),
+                                        fontSize: 9.5,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 1.2,
+                                        fontFamily: 'monospace',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+
+                            // 4. Air Gestures
+                            ListenableBuilder(
+                              listenable: AirGestureService.instance,
+                              builder: (context, _) {
+                                final isAir = AirGestureService.instance.isEnabled;
+                                final airColor = isAir ? const Color(0xFF00E5FF) : themeColor;
+                                return GestureDetector(
+                                  onTap: () {
+                                    HapticFeedback.mediumImpact();
+                                    showDialog(
+                                      context: context,
+                                      barrierColor: Colors.black.withValues(alpha: 0.65),
+                                      builder: (_) => const AirGesturesHudWidget(),
+                                    );
+                                  },
+                                  onLongPress: () {
+                                    HapticFeedback.heavyImpact();
+                                    AirGestureService.instance.toggleAirGestures();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                    decoration: BoxDecoration(
+                                      color: isAir ? airColor.withValues(alpha: 0.20) : airColor.withValues(alpha: 0.10),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: isAir ? airColor : airColor.withValues(alpha: 0.40),
+                                        width: isAir ? 1.6 : 1.2,
+                                      ),
+                                      boxShadow: isAir
+                                          ? [
+                                              BoxShadow(
+                                                color: airColor.withValues(alpha: 0.4),
+                                                blurRadius: 10,
+                                              ),
+                                            ]
+                                          : null,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          isAir ? Icons.pan_tool : Icons.pan_tool_outlined,
+                                          size: 13,
+                                          color: airColor,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          'AIR GESTURES',
+                                          style: TextStyle(
+                                            color: airColor,
+                                            fontSize: 9.5,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 1.2,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 8),
+
+                            // 5. Screen Style (Jarvis vs Arc)
+                            ListenableBuilder(
+                              listenable: SettingsService.instance,
+                              builder: (context, _) {
+                                final style = SettingsService.instance.jarvisScreenStyle;
+                                final isArc = style == JarvisScreenStyle.arcReactor;
+                                final podColor = isArc ? const Color(0xFF00E5FF) : const Color(0xFF64FFDA);
+
+                                return GestureDetector(
+                                  onTap: () {
+                                    HapticFeedback.mediumImpact();
+                                    final next = isArc ? JarvisScreenStyle.jarvis : JarvisScreenStyle.arcReactor;
+                                    SettingsService.instance.setJarvisScreenStyle(next);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 7),
+                                    decoration: BoxDecoration(
+                                      color: podColor.withValues(alpha: 0.12),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: podColor.withValues(alpha: 0.45),
+                                        width: 1.2,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          isArc ? Icons.blur_circular_rounded : Icons.accessibility_new_rounded,
+                                          size: 13,
+                                          color: podColor,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          isArc ? 'ARC' : 'JARVIS',
+                                          style: TextStyle(
+                                            color: podColor,
+                                            fontSize: 9.5,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 1.2,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 8),
+
+                            // 6. Macro Recorder
+                            ListenableBuilder(
+                              listenable: MacroRecorderService.instance,
+                              builder: (context, _) {
+                                final isRec = MacroRecorderService.instance.isRecording;
+                                final color = isRec ? const Color(0xFFFF5252) : const Color(0xFFBA68C8);
+                                return GestureDetector(
+                                  onTap: () {
+                                    HapticFeedback.mediumImpact();
+                                    if (isRec) {
+                                      _jarvis.processCommand('save macro');
+                                    } else {
+                                      _jarvis.processCommand('record macro Custom Task');
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                    decoration: BoxDecoration(
+                                      color: color.withValues(alpha: 0.12),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: color.withValues(alpha: 0.45),
+                                        width: 1.2,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          isRec ? Icons.fiber_manual_record : Icons.auto_awesome,
+                                          size: 13,
+                                          color: color,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          isRec ? 'SAVE' : 'MACRO',
+                                          style: TextStyle(
+                                            color: color,
+                                            fontSize: 9.5,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 1.2,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
 

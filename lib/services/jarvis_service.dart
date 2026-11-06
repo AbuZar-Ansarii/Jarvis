@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 import '../models/task_history_entry.dart';
 import '../widgets/airspace_radar_dialog.dart';
+import '../widgets/brain_dump_dialog.dart';
 import '../widgets/network_audit_dialog.dart';
 import '../widgets/optical_solver_dialog.dart';
 import '../widgets/polyglot_diplomat_dialog.dart';
@@ -27,6 +28,7 @@ import 'email_triage_service.dart';
 import 'finance_tracking_service.dart';
 import 'floating_copilot_service.dart';
 import 'form_filling_service.dart';
+import 'hermes_evolution_service.dart';
 import 'inbox_service.dart';
 import 'jarvis_tools_service.dart';
 import 'macro_recorder_service.dart';
@@ -889,7 +891,9 @@ class JarvisService extends ChangeNotifier {
     if (lower == 'always on' ||
         lower == 'activate always on' ||
         lower == 'hands free' ||
-        lower == 'continuous listening') {
+        lower == 'continuous listening' ||
+        lower == 'turn on always on' ||
+        lower == 'enable always on') {
       await SettingsService.instance.setJarvisAlwaysOn(true);
       ensureAlwaysOnRunning();
       const reply = 'Always-on continuous listening engaged, sir.';
@@ -901,7 +905,64 @@ class JarvisService extends ChangeNotifier {
       return;
     }
 
-    // 3b. Autonomous Macro Recorder fast triggers
+    if (lower == 'turn off always on' ||
+        lower == 'disable always on' ||
+        lower == 'deactivate always on' ||
+        lower == 'stop always on') {
+      await SettingsService.instance.setJarvisAlwaysOn(false);
+      stopAlwaysOn();
+      const reply = 'Always-on continuous listening deactivated, sir.';
+      _lastJarvisSpeech = reply;
+      _phase = JarvisPhase.speaking;
+      _statusMessage = 'READY // TAP TO TALK';
+      notifyListeners();
+      await _voice.speak(reply);
+      return;
+    }
+
+    // 3b. Hermes Self-Evolution triggers
+    if (lower == 'self evolve' ||
+        lower == 'evolve context' ||
+        lower == 'run self evolution' ||
+        lower == 'hermes evolution' ||
+        lower == 'evolve yourself' ||
+        lower == 'update your protocols' ||
+        lower == 'evolve memory') {
+      _phase = JarvisPhase.thinking;
+      _statusMessage = 'SYNTHESIZING HERMES CONTEXT';
+      notifyListeners();
+      await HermesEvolutionService.instance.evolveContext();
+      final factsCount = ConversationalMemoryService.instance.facts.length;
+      final workflowCount = WorkflowService.instance.workflows.length;
+      final reply =
+          'Hermes self-evolution cycle completed, sir. Synthesized $factsCount user memory facts and $workflowCount active protocols across SOUL.md, USER.md, and AGENT.md.';
+      _lastJarvisSpeech = reply;
+      _phase = JarvisPhase.speaking;
+      _statusMessage = 'SELF-EVOLUTION COMPLETE';
+      notifyListeners();
+      await _voice.speak(reply);
+      await _startFollowUpListening();
+      return;
+    }
+
+    // 3c. Interactive Multi-Task Decoupler Dialog
+    if (lower == 'open brain dump' ||
+        lower == 'show brain dump' ||
+        lower == 'open multitask' ||
+        lower == 'show multitask' ||
+        lower == 'multitask dialog' ||
+        lower == 'decoupler dialog') {
+      _showModalSafely(const BrainDumpDialog());
+      const reply = 'Multi-Task Decoupler interface opened, sir. Ready for your compound instructions.';
+      _lastJarvisSpeech = reply;
+      _phase = JarvisPhase.speaking;
+      _statusMessage = 'MULTI-TASK DECOUPLER ACTIVE';
+      notifyListeners();
+      await _voice.speak(reply);
+      return;
+    }
+
+    // 3d. Autonomous Macro Recorder fast triggers
     if (lower.startsWith('stop recording') ||
         lower.startsWith('save macro') ||
         lower.startsWith('finish recording')) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'hermes_evolution_service.dart';
 
 /// A remembered fact or user preference that persists across sessions.
 class MemoryFact {
@@ -177,6 +178,9 @@ class ConversationalMemoryService extends ChangeNotifier {
     );
     _facts.insert(0, newFact);
     await _persistFacts();
+    try {
+      HermesEvolutionService.instance.evolveContext().catchError((_) {});
+    } catch (_) {}
     return newFact;
   }
 
@@ -185,6 +189,9 @@ class ConversationalMemoryService extends ChangeNotifier {
     await init();
     _facts.removeWhere((f) => f.id == id);
     await _persistFacts();
+    try {
+      HermesEvolutionService.instance.evolveContext().catchError((_) {});
+    } catch (_) {}
   }
 
   /// Privacy: Clears all stored long-term facts.

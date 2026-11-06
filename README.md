@@ -10,6 +10,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.12+-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 [![Android](https://img.shields.io/badge/Android-API%2026%2B%20(8.0--15)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=for-the-badge&logo=github)](https://github.com/AbuZar-Ansarii/Jarvis/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local--First-00E5FF?style=for-the-badge&logo=shield&logoColor=black)](https://ollama.com)
 [![Hermes](https://img.shields.io/badge/Hermes-Self--Evolving%20Engine-BA68C8?style=for-the-badge&logo=openai&logoColor=white)](https://nousresearch.com)
@@ -38,7 +39,28 @@ Unlike conventional voice assistants that merely return web searches or canned v
 
 ---
 
-## 🏗️ Architectural Blueprint & Data Flow
+## 🚀 What's New in v1.1.0 — The Autonomous Triad
+
+Release **v1.1.0** introduces **The Autonomous Triad** upgrade:
+
+1. 🧠 **Multi-Task Decoupler & Parallel Execution Engine**:
+   - **Chaotic Brain Dump UI**: New interactive glass HUD dialog (`BrainDumpDialog`) and Navigation Drawer entry.
+   - **Multi-Vector Parallel Execution**: Dictate or type complex compound requests (e.g., *"Set a reminder for 5 PM, text Sarah I'm 10 mins late, add eggs to my todo, calculate 25% of 600, and turn on the flashlight"*). Deconstructs intents into parallel async futures with consolidated vocal executive briefings.
+   - **Expanded Directives**: Added direct hardware execution for device actions (torch/flashlight, volume up/down, mute, screenshots) alongside reminders, drafts, todos, notes, and calculations.
+
+2. 🎙️ **Always-On Hands-Free Continuous Listening**:
+   - **Live HUD Receptor Toggle**: Directly switch between Always-On continuous listening and Standby mode right from the HUD action dock with a glowing status ring.
+   - **Ambient Noise Filtering**: Uses acoustic RMS silence boundary detection and low-power passive listening for wake words (`"Hey Jarvis"`, `"Jarvis"`, `"Hello Jarvis"`).
+   - **Conversational Continuation Window**: Automatically keeps audio receptors open for 7.5 seconds after speaking for frictionless follow-up queries without repeating the wake word.
+   - **Full Voice Control**: Hands-free voice toggles anytime with *"Always on"*, *"Hands free"*, or *"Turn off always on"*.
+
+3. 🧬 **Hermes Self-Evolution Engine**:
+   - **Tri-Partite Context Architecture**: Synthesizes and maintains `SOUL.md` (Constitution & Identity), `USER.md` (Operator Habits & Facts), and `AGENT.md` (Protocols & Tool Capabilities).
+   - **Voice-Triggered Evolution**: Say *"Hey Jarvis, self evolve"*, *"Evolve context"*, or *"Update your memory"* to immediately synthesize new user facts and active device workflows.
+   - **Live Memory-to-Soul Hook**: Automatically synchronizes whenever new facts or preferences are extracted from conversations.
+   - **HUD One-Tap Action**: One-tap "SELF EVOLVE" pod in the 3D Hologram HUD with immediate vocal status briefing.
+
+---
 
 The following architecture diagram illustrates how J.A.R.V.I.S. coordinates Flutter UI, native Android platform channels, hardware sensors, accessibility services, and local/cloud LLMs:
 
